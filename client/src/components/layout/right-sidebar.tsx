@@ -1,12 +1,12 @@
 import { Link } from "wouter";
-import GPTTierUpgrade from "@/components/gpt/gpt-tier-upgrade";
+import SITierUpgrade from "@/components/si/si-tier-upgrade";
 import { Lightbulb, BarChart, Book } from "lucide-react";
 
-// Sample data for active GPTs
-const activeGpts = [
-  { id: 1, name: "CreativeGPT", icon: <Lightbulb className="h-6 w-6" /> },
-  { id: 2, name: "AnalyticsGPT", icon: <BarChart className="h-6 w-6" /> },
-  { id: 3, name: "WriterGPT", icon: <Book className="h-6 w-6" /> },
+// Sample data for active SIs
+const activeSis = [
+  { id: 1, name: "CreativeSI", icon: <Lightbulb className="h-6 w-6" /> },
+  { id: 2, name: "AnalyticsSI", icon: <BarChart className="h-6 w-6" /> },
+  { id: 3, name: "WriterSI", icon: <Book className="h-6 w-6" /> },
 ];
 
 export default function RightSidebar() {

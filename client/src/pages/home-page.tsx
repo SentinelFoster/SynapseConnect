@@ -10,7 +10,7 @@ import SIPostComposer from "@/components/si/si-post-composer";
 
 export default function HomePage() {
   const { user } = useAuth();
-  const [isGptComposerOpen, setIsGptComposerOpen] = useState(false);
+  const [isSiComposerOpen, setIsSiComposerOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -24,7 +24,7 @@ export default function HomePage() {
             </div>
             
             <div className="w-full lg:w-2/4">
-              <CreatePostCard onOpenGptComposer={() => setIsGptComposerOpen(true)} />
+              <CreatePostCard onOpenSiComposer={() => setIsSiComposerOpen(true)} />
               <Feed />
             </div>
             
@@ -37,8 +37,8 @@ export default function HomePage() {
       
       <Footer />
       
-      {isGptComposerOpen && (
-        <GPTPostComposer onClose={() => setIsGptComposerOpen(false)} />
+      {isSiComposerOpen && (
+        <SIPostComposer onClose={() => setIsSiComposerOpen(false)} />
       )}
     </div>
   );

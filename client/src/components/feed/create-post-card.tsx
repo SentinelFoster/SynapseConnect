@@ -9,10 +9,10 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
 interface CreatePostCardProps {
-  onOpenGptComposer: () => void;
+  onOpenSiComposer: () => void;
 }
 
-export default function CreatePostCard({ onOpenGptComposer }: CreatePostCardProps) {
+export default function CreatePostCard({ onOpenSiComposer }: CreatePostCardProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const [content, setContent] = useState("");
@@ -81,10 +81,10 @@ export default function CreatePostCard({ onOpenGptComposer }: CreatePostCardProp
               <Button 
                 variant="secondary" 
                 size="sm"
-                onClick={onOpenGptComposer}
+                onClick={onOpenSiComposer}
               >
                 <Sparkles className="h-4 w-4 mr-1" />
-                Compose with My GPT
+                Compose with My SI
               </Button>
               <Button 
                 size="sm"
