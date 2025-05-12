@@ -12,29 +12,29 @@ const activeSis = [
 export default function RightSidebar() {
   return (
     <div className="bg-white shadow rounded-lg p-4 sticky top-20">
-      <h3 className="text-base font-medium text-neutral-800 mb-4">My Active GPTs</h3>
+      <h3 className="text-base font-medium text-neutral-800 mb-4">My Active SIs</h3>
       
       <div className="grid grid-cols-3 gap-3">
-        {/* Active GPT slots */}
-        {activeGpts.map((gpt) => (
+        {/* Active SI slots */}
+        {activeSis.map((si) => (
           <div 
-            key={gpt.id}
-            className="gpt-slot relative bg-neutral-50 rounded-lg p-2 border border-neutral-200 hover:border-secondary cursor-pointer"
+            key={si.id}
+            className="si-slot relative bg-neutral-50 rounded-lg p-2 border border-neutral-200 hover:border-secondary cursor-pointer"
           >
             <div className="flex flex-col items-center">
               <div className="w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center mb-1">
-                {gpt.icon}
+                {si.icon}
               </div>
-              <span className="text-xs font-medium truncate w-full text-center">{gpt.name}</span>
+              <span className="text-xs font-medium truncate w-full text-center">{si.name}</span>
             </div>
           </div>
         ))}
         
-        {/* Empty GPT Slots */}
+        {/* Empty SI Slots */}
         {Array.from({ length: 21 }).map((_, i) => (
           <div 
             key={`empty-${i}`}
-            className="gpt-slot relative bg-neutral-50 rounded-lg p-2 border border-dashed border-neutral-300 hover:border-primary cursor-pointer"
+            className="si-slot relative bg-neutral-50 rounded-lg p-2 border border-dashed border-neutral-300 hover:border-primary cursor-pointer"
           >
             <div className="flex flex-col items-center">
               <div className="w-10 h-10 bg-neutral-200 text-neutral-500 rounded-full flex items-center justify-center mb-1">
@@ -49,8 +49,8 @@ export default function RightSidebar() {
       </div>
       
       <div className="mt-6 pt-4 border-t border-neutral-200">
-        <h3 className="text-base font-medium text-neutral-800 mb-3">GPT Tier Upgrade</h3>
-        <GPTTierUpgrade />
+        <h3 className="text-base font-medium text-neutral-800 mb-3">SI Tier Upgrade</h3>
+        <SITierUpgrade />
       </div>
     </div>
   );
