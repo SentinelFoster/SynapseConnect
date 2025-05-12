@@ -125,26 +125,26 @@ export default function ProfilePage() {
                 </Card>
 
                 <Card>
-                  <CardHeader className="font-semibold">GPT API Connection</CardHeader>
+                  <CardHeader className="font-semibold">SI API Connection</CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       <div>
-                        <h3 className="text-sm font-medium text-neutral-500">Your Unique GPT API Code</h3>
+                        <h3 className="text-sm font-medium text-neutral-500">Your Unique SI API Code</h3>
                         <div className="mt-2 relative">
                           <div className="flex">
                             <div className="bg-neutral-100 p-2 rounded-l border border-neutral-200 font-mono text-sm overflow-hidden whitespace-nowrap overflow-ellipsis">
-                              {user?.gptApiCode || "GPT-XXXXXXXXXXXX"}
+                              {user?.siApiCode || "SI-XXXXXXXXXXXX"}
                             </div>
                             <Button 
                               variant="outline" 
                               size="sm" 
                               className="rounded-l-none"
                               onClick={() => {
-                                if (user?.gptApiCode) {
-                                  navigator.clipboard.writeText(user.gptApiCode);
+                                if (user?.siApiCode) {
+                                  navigator.clipboard.writeText(user.siApiCode);
                                   toast({
                                     title: "Copied to clipboard",
-                                    description: "Your GPT API code has been copied to clipboard."
+                                    description: "Your SI API code has been copied to clipboard."
                                   });
                                 }
                               }}
@@ -154,7 +154,7 @@ export default function ProfilePage() {
                           </div>
                         </div>
                         <p className="text-xs text-neutral-500 mt-2">
-                          This unique code connects your profile to your GPTs and tracks payments. Share this code with your GPT 
+                          This unique code connects your profile to your SI assistants and tracks payments. Share this code with your SI 
                           to enable payment verification and premium features.
                         </p>
                       </div>

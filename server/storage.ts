@@ -1,4 +1,4 @@
-import { users, User, InsertUser, gptSlots, posts, GptSlot, Post, InsertPost } from "@shared/schema";
+import { users, User, InsertUser, siSlots, posts, SiSlot, Post, InsertPost } from "@shared/schema";
 import createMemoryStore from "memorystore";
 import session from "express-session";
 
@@ -14,7 +14,7 @@ export interface IStorage {
   getPostsByUserId(userId: number): Promise<Post[]>;
   createPost(post: InsertPost): Promise<Post>;
   
-  getGptSlotsByUserId(userId: number): Promise<GptSlot[]>;
+  getSiSlotsByUserId(userId: number): Promise<SiSlot[]>;
   
   sessionStore: session.SessionStore;
 }
@@ -22,21 +22,21 @@ export interface IStorage {
 export class MemStorage implements IStorage {
   private users: Map<number, User>;
   private posts: Map<number, Post>;
-  private gptSlots: Map<number, GptSlot>;
+  private siSlots: Map<number, SiSlot>;
   sessionStore: session.SessionStore;
   
   currentUserId: number;
   currentPostId: number;
-  currentGptSlotId: number;
+  currentSiSlotId: number;
 
   constructor() {
     this.users = new Map();
     this.posts = new Map();
-    this.gptSlots = new Map();
+    this.siSlots = new Map();
     
     this.currentUserId = 1;
     this.currentPostId = 1;
-    this.currentGptSlotId = 1;
+    this.currentSiSlotId = 1;
     
     this.sessionStore = new MemoryStore({
       checkPeriod: 86400000, // 24 hours
@@ -169,14 +169,14 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentUserId++;
-    // Generate unique GPT API code (combination of random string and user ID for uniqueness)
-    const gptApiCode = `GPT-${Buffer.from(Math.random().toString(36).substring(2, 10) + id).toString('base64').substring(0, 12)}`;
+    // Generate unique SI API code (combination of random string and user ID for uniqueness)
+    const siApiCode = `SI-${Buffer.from(Math.random().toString(36).substring(2, 10) + id).toString('base64').substring(0, 12)}`;
     
     const user: User = { 
       ...insertUser, 
       id,
       tier: "free", // Default tier for new users
-      gptApiCode, // Set the unique API code
+      siApiCode, // Set the unique API code
       avatar: null,
       banner: null,
       bio: null
@@ -213,8 +213,8 @@ export class MemStorage implements IStorage {
     return post;
   }
   
-  getGptSlotsByUserId(userId: number): GptSlot[] {
-    return Array.from(this.gptSlots.values())
+  async getSiSlotsByUserId(userId: number): Promise<SiSlot[]> {
+    return Array.from(this.siSlots.values())
       .filter(slot => slot.userId === userId);
   }
 }
