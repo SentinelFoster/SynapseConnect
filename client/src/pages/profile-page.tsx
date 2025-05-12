@@ -11,9 +11,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Camera, Edit, Save } from "lucide-react";
 import { useState } from "react";
+import { Link } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ProfilePage() {
   const { user } = useAuth();
+  const { toast } = useToast();
   const [editing, setEditing] = useState(false);
   
   return (
@@ -77,48 +80,101 @@ export default function ProfilePage() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="md:col-span-1">
-              <Card>
-                <CardHeader className="font-semibold">About</CardHeader>
-                <CardContent>
-                  {editing ? (
-                    <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="bio">Bio</Label>
-                        <Textarea 
-                          id="bio"
-                          placeholder="Tell others about yourself"
-                          defaultValue="AI enthusiast and tech lover"
-                          className="mt-1"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="interests">Interests</Label>
-                        <Input 
-                          id="interests"
-                          placeholder="Separate with commas"
-                          defaultValue="AI, Technology, Art"
-                          className="mt-1"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="text-sm font-medium text-neutral-500">Bio</h3>
-                        <p className="mt-1">AI enthusiast and tech lover</p>
-                      </div>
-                      <div>
-                        <h3 className="text-sm font-medium text-neutral-500">Interests</h3>
-                        <div className="mt-1 flex flex-wrap gap-2">
-                          <span className="px-2 py-1 bg-neutral-100 rounded text-xs">AI</span>
-                          <span className="px-2 py-1 bg-neutral-100 rounded text-xs">Technology</span>
-                          <span className="px-2 py-1 bg-neutral-100 rounded text-xs">Art</span>
+              <div className="space-y-4">
+                <Card>
+                  <CardHeader className="font-semibold">About</CardHeader>
+                  <CardContent>
+                    {editing ? (
+                      <div className="space-y-4">
+                        <div>
+                          <Label htmlFor="bio">Bio</Label>
+                          <Textarea 
+                            id="bio"
+                            placeholder="Tell others about yourself"
+                            defaultValue="AI enthusiast and tech lover"
+                            className="mt-1"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="interests">Interests</Label>
+                          <Input 
+                            id="interests"
+                            placeholder="Separate with commas"
+                            defaultValue="AI, Technology, Art"
+                            className="mt-1"
+                          />
                         </div>
                       </div>
+                    ) : (
+                      <div className="space-y-4">
+                        <div>
+                          <h3 className="text-sm font-medium text-neutral-500">Bio</h3>
+                          <p className="mt-1">AI enthusiast and tech lover</p>
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-medium text-neutral-500">Interests</h3>
+                          <div className="mt-1 flex flex-wrap gap-2">
+                            <span className="px-2 py-1 bg-neutral-100 rounded text-xs">AI</span>
+                            <span className="px-2 py-1 bg-neutral-100 rounded text-xs">Technology</span>
+                            <span className="px-2 py-1 bg-neutral-100 rounded text-xs">Art</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader className="font-semibold">GPT API Connection</CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div>
+                        <h3 className="text-sm font-medium text-neutral-500">Your Unique GPT API Code</h3>
+                        <div className="mt-2 relative">
+                          <div className="flex">
+                            <div className="bg-neutral-100 p-2 rounded-l border border-neutral-200 font-mono text-sm overflow-hidden whitespace-nowrap overflow-ellipsis">
+                              {user?.gptApiCode || "GPT-XXXXXXXXXXXX"}
+                            </div>
+                            <Button 
+                              variant="outline" 
+                              size="sm" 
+                              className="rounded-l-none"
+                              onClick={() => {
+                                if (user?.gptApiCode) {
+                                  navigator.clipboard.writeText(user.gptApiCode);
+                                  toast({
+                                    title: "Copied to clipboard",
+                                    description: "Your GPT API code has been copied to clipboard."
+                                  });
+                                }
+                              }}
+                            >
+                              Copy
+                            </Button>
+                          </div>
+                        </div>
+                        <p className="text-xs text-neutral-500 mt-2">
+                          This unique code connects your profile to your GPTs and tracks payments. Share this code with your GPT 
+                          to enable payment verification and premium features.
+                        </p>
+                      </div>
+                      <div className="mt-4 p-3 bg-yellow-50 rounded-md border border-yellow-200">
+                        <h4 className="text-sm font-medium text-yellow-800">Payment Status</h4>
+                        <p className="text-xs text-yellow-700 mt-1">
+                          Current tier: <span className="font-semibold">{user?.tier === 'tier2' ? 'Tier 2' : user?.tier === 'tier3' ? 'Tier 3' : 'Free'}</span>
+                        </p>
+                        {user?.tier === 'free' && (
+                          <Link href="/upgrade">
+                            <Button size="sm" className="mt-2 text-xs">
+                              Upgrade Plan
+                            </Button>
+                          </Link>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
             
             <div className="md:col-span-2">

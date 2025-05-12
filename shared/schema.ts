@@ -11,6 +11,7 @@ export const users = pgTable("users", {
   banner: text("banner"),
   bio: text("bio"),
   tier: text("tier").default("free").notNull(), // "free", "tier2", "tier3"
+  gptApiCode: text("gpt_api_code").unique(), // Unique code for GPT connection and payment tracking
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
@@ -50,6 +51,8 @@ export const gptSlots = pgTable("gpt_slots", {
   type: varchar("type", { length: 50 }).notNull(), // "creative", "analytics", "writer", etc.
   active: boolean("active").default(true).notNull(),
   settings: text("settings"), // JSON settings for this GPT as a string
+  paymentTracking: boolean("payment_tracking").default(false).notNull(), // Track if this GPT slot is being paid for
+  linkedApiCode: text("linked_api_code").references(() => users.gptApiCode), // Link to user's API code for payment verification
 });
 
 export const insertGptSlotSchema = createInsertSchema(gptSlots).pick({
@@ -58,6 +61,8 @@ export const insertGptSlotSchema = createInsertSchema(gptSlots).pick({
   type: true,
   active: true,
   settings: true,
+  paymentTracking: true,
+  linkedApiCode: true,
 });
 
 export type InsertGptSlot = z.infer<typeof insertGptSlotSchema>;

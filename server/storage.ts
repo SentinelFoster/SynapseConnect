@@ -53,6 +53,10 @@ export class MemStorage implements IStorage {
       username: "sarah_connor",
       password: "hashed_password_here",
       tier: "free",
+      gptApiCode: "GPT-AXF92kJd7Hst",
+      avatar: null,
+      banner: null,
+      bio: null
     };
     
     const user2: User = {
@@ -60,6 +64,10 @@ export class MemStorage implements IStorage {
       username: "james_wilson",
       password: "hashed_password_here",
       tier: "tier2",
+      gptApiCode: "GPT-BYH45lKp8Qwz",
+      avatar: null,
+      banner: null,
+      bio: null
     };
     
     const user3: User = {
@@ -67,6 +75,10 @@ export class MemStorage implements IStorage {
       username: "emily_davis",
       password: "hashed_password_here",
       tier: "free",
+      gptApiCode: "GPT-CZT67mNs9Rxy",
+      avatar: null,
+      banner: null,
+      bio: null
     };
     
     this.users.set(user1.id, user1);
@@ -113,6 +125,9 @@ export class MemStorage implements IStorage {
       name: "AnalyticsGPT",
       type: "analytics",
       active: true,
+      settings: null,
+      paymentTracking: false,
+      linkedApiCode: user1.gptApiCode,
     };
     
     const slot2: GptSlot = {
@@ -121,6 +136,9 @@ export class MemStorage implements IStorage {
       name: "CreativeGPT",
       type: "creative",
       active: true,
+      settings: null,
+      paymentTracking: true, // Tier 2 user has payment tracking enabled
+      linkedApiCode: user2.gptApiCode,
     };
     
     const slot3: GptSlot = {
@@ -129,6 +147,9 @@ export class MemStorage implements IStorage {
       name: "RecipeGPT",
       type: "recipe",
       active: true,
+      settings: null,
+      paymentTracking: false,
+      linkedApiCode: user3.gptApiCode,
     };
     
     this.gptSlots.set(slot1.id, slot1);
@@ -148,10 +169,17 @@ export class MemStorage implements IStorage {
 
   async createUser(insertUser: InsertUser): Promise<User> {
     const id = this.currentUserId++;
+    // Generate unique GPT API code (combination of random string and user ID for uniqueness)
+    const gptApiCode = `GPT-${Buffer.from(Math.random().toString(36).substring(2, 10) + id).toString('base64').substring(0, 12)}`;
+    
     const user: User = { 
       ...insertUser, 
       id,
-      tier: "free" // Default tier for new users
+      tier: "free", // Default tier for new users
+      gptApiCode, // Set the unique API code
+      avatar: null,
+      banner: null,
+      bio: null
     };
     this.users.set(id, user);
     return user;
