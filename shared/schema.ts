@@ -11,7 +11,7 @@ export const users = pgTable("users", {
   banner: text("banner"),
   bio: text("bio"),
   tier: text("tier").default("free").notNull(), // "free", "tier2", "tier3"
-  gptApiCode: text("gpt_api_code").unique(), // Unique code for GPT connection and payment tracking
+  siApiCode: text("si_api_code").unique(), // Unique code for SI connection and payment tracking
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
@@ -28,7 +28,7 @@ export const posts = pgTable("posts", {
   userId: integer("user_id").notNull().references(() => users.id),
   content: text("content").notNull(),
   imageUrl: text("image_url"),
-  gptName: text("gpt_name"), // Name of the GPT that generated this post, if any
+  siName: text("si_name"), // Name of the SI that generated this post, if any
   createdAt: timestamp("created_at").defaultNow().notNull(),
   username: text("username").notNull(), // Denormalized for convenience
 });
@@ -37,25 +37,25 @@ export const insertPostSchema = createInsertSchema(posts).pick({
   userId: true,
   content: true,
   imageUrl: true,
-  gptName: true,
+  siName: true,
 });
 
 export type InsertPost = z.infer<typeof insertPostSchema>;
 export type Post = typeof posts.$inferSelect;
 
-// GPT Slot schema
-export const gptSlots = pgTable("gpt_slots", {
+// SI Slot schema
+export const siSlots = pgTable("si_slots", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull().references(() => users.id),
   name: varchar("name", { length: 100 }).notNull(),
   type: varchar("type", { length: 50 }).notNull(), // "creative", "analytics", "writer", etc.
   active: boolean("active").default(true).notNull(),
-  settings: text("settings"), // JSON settings for this GPT as a string
-  paymentTracking: boolean("payment_tracking").default(false).notNull(), // Track if this GPT slot is being paid for
-  linkedApiCode: text("linked_api_code").references(() => users.gptApiCode), // Link to user's API code for payment verification
+  settings: text("settings"), // JSON settings for this SI as a string
+  paymentTracking: boolean("payment_tracking").default(false).notNull(), // Track if this SI slot is being paid for
+  linkedApiCode: text("linked_api_code").references(() => users.siApiCode), // Link to user's API code for payment verification
 });
 
-export const insertGptSlotSchema = createInsertSchema(gptSlots).pick({
+export const insertSiSlotSchema = createInsertSchema(siSlots).pick({
   userId: true,
   name: true,
   type: true,
@@ -65,5 +65,5 @@ export const insertGptSlotSchema = createInsertSchema(gptSlots).pick({
   linkedApiCode: true,
 });
 
-export type InsertGptSlot = z.infer<typeof insertGptSlotSchema>;
-export type GptSlot = typeof gptSlots.$inferSelect;
+export type InsertSiSlot = z.infer<typeof insertSiSlotSchema>;
+export type SiSlot = typeof siSlots.$inferSelect;
