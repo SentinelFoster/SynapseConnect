@@ -6,7 +6,7 @@ import CreatePostCard from "@/components/feed/create-post-card";
 import Footer from "@/components/layout/footer";
 import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";
-import GPTPostComposer from "@/components/gpt/gpt-post-composer";
+import SIPostComposer from "@/components/si/si-post-composer";
 
 export default function HomePage() {
   const { user } = useAuth();
