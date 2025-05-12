@@ -1,31 +1,31 @@
 import { Lightbulb, BarChart, Book, Plus } from "lucide-react";
 
-// Sample data for active GPTs
-const activeGpts = [
-  { id: 1, name: "CreativeGPT", icon: <Lightbulb className="h-6 w-6" /> },
-  { id: 2, name: "AnalyticsGPT", icon: <BarChart className="h-6 w-6" /> },
-  { id: 3, name: "WriterGPT", icon: <Book className="h-6 w-6" /> },
+// Sample data for active SIs
+const activeSis = [
+  { id: 1, name: "CreativeSI", icon: <Lightbulb className="h-6 w-6" /> },
+  { id: 2, name: "AnalyticsSI", icon: <BarChart className="h-6 w-6" /> },
+  { id: 3, name: "WriterSI", icon: <Book className="h-6 w-6" /> },
 ];
 
-export default function GPTSlotPanel() {
+export default function SISlotPanel() {
   return (
     <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-      {/* Active GPT slots */}
-      {activeGpts.map((gpt) => (
+      {/* Active SI slots */}
+      {activeSis.map((si) => (
         <div 
-          key={gpt.id}
-          className="gpt-slot relative bg-neutral-50 rounded-lg p-2 border border-neutral-200 hover:border-secondary cursor-pointer"
+          key={si.id}
+          className="si-slot relative bg-neutral-50 rounded-lg p-2 border border-neutral-200 hover:border-secondary cursor-pointer"
         >
           <div className="flex flex-col items-center">
             <div className="w-12 h-12 bg-secondary text-white rounded-full flex items-center justify-center mb-1">
-              {gpt.icon}
+              {si.icon}
             </div>
-            <span className="text-xs font-medium truncate w-full text-center">{gpt.name}</span>
+            <span className="text-xs font-medium truncate w-full text-center">{si.name}</span>
           </div>
         </div>
       ))}
       
-      {/* Empty GPT Slots */}
+      {/* Empty SI Slots */}
       {Array.from({ length: 21 }).map((_, i) => (
         <div 
           key={`empty-${i}`}

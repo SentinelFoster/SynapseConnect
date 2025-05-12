@@ -53,7 +53,7 @@ export class MemStorage implements IStorage {
       username: "sarah_connor",
       password: "hashed_password_here",
       tier: "free",
-      gptApiCode: "GPT-AXF92kJd7Hst",
+      siApiCode: "SI-AXF92kJd7Hst",
       avatar: null,
       banner: null,
       bio: null
@@ -64,7 +64,7 @@ export class MemStorage implements IStorage {
       username: "james_wilson",
       password: "hashed_password_here",
       tier: "tier2",
-      gptApiCode: "GPT-BYH45lKp8Qwz",
+      siApiCode: "SI-BYH45lKp8Qwz",
       avatar: null,
       banner: null,
       bio: null
@@ -75,7 +75,7 @@ export class MemStorage implements IStorage {
       username: "emily_davis",
       password: "hashed_password_here",
       tier: "free",
-      gptApiCode: "GPT-CZT67mNs9Rxy",
+      siApiCode: "SI-CZT67mNs9Rxy",
       avatar: null,
       banner: null,
       bio: null
@@ -89,27 +89,27 @@ export class MemStorage implements IStorage {
     const post1: Post = {
       id: this.currentPostId++,
       userId: user1.id,
-      content: "Just finished analyzing the latest market trends with my Analytics GPT. Fascinating insights on how AI is transforming business intelligence! Here's a visualization it created showing the projected growth in key sectors.",
+      content: "Just finished analyzing the latest market trends with my Analytics SI. Fascinating insights on how AI is transforming business intelligence! Here's a visualization it created showing the projected growth in key sectors.",
       imageUrl: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=450",
       createdAt: new Date().toISOString(),
-      gptName: "AnalyticsGPT",
+      siName: "AnalyticsSI",
       username: user1.username,
     };
     
     const post2: Post = {
       id: this.currentPostId++,
       userId: user2.id,
-      content: "I asked my CreativeGPT to imagine what transportation might look like in 2075. Check out this amazing concept it came up with - a magnetic levitation pod system powered by renewable energy that connects major cities!",
+      content: "I asked my CreativeSI to imagine what transportation might look like in 2075. Check out this amazing concept it came up with - a magnetic levitation pod system powered by renewable energy that connects major cities!",
       imageUrl: "https://pixabay.com/get/g13a9bf8548a5f01a68de17828d7ade2bf535ed374a529a2f2f7eb7bc35277d1f0f05424685f24d0d81968d956cba775e242f7be523c97cd6351eb2ce6c73604f_1280.jpg",
       createdAt: new Date().toISOString(),
-      gptName: "CreativeGPT",
+      siName: "CreativeSI",
       username: user2.username,
     };
     
     const post3: Post = {
       id: this.currentPostId++,
       userId: user3.id,
-      content: "Just upgraded to Tier 2 and I'm amazed at how much better my RecipeGPT's suggestions are! It learned my dietary preferences and created this custom meal plan. Worth every penny!",
+      content: "Just upgraded to Tier 2 and I'm amazed at how much better my RecipeSI's suggestions are! It learned my dietary preferences and created this custom meal plan. Worth every penny!",
       createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
       username: user3.username,
     };
@@ -118,43 +118,43 @@ export class MemStorage implements IStorage {
     this.posts.set(post2.id, post2);
     this.posts.set(post3.id, post3);
     
-    // Create some GPT slots
-    const slot1: GptSlot = {
-      id: this.currentGptSlotId++,
+    // Create some SI slots
+    const slot1: SiSlot = {
+      id: this.currentSiSlotId++,
       userId: user1.id,
-      name: "AnalyticsGPT",
+      name: "AnalyticsSI",
       type: "analytics",
       active: true,
       settings: null,
       paymentTracking: false,
-      linkedApiCode: user1.gptApiCode,
+      linkedApiCode: user1.siApiCode,
     };
     
-    const slot2: GptSlot = {
-      id: this.currentGptSlotId++,
+    const slot2: SiSlot = {
+      id: this.currentSiSlotId++,
       userId: user2.id,
-      name: "CreativeGPT",
+      name: "CreativeSI",
       type: "creative",
       active: true,
       settings: null,
       paymentTracking: true, // Tier 2 user has payment tracking enabled
-      linkedApiCode: user2.gptApiCode,
+      linkedApiCode: user2.siApiCode,
     };
     
-    const slot3: GptSlot = {
-      id: this.currentGptSlotId++,
+    const slot3: SiSlot = {
+      id: this.currentSiSlotId++,
       userId: user3.id,
-      name: "RecipeGPT",
+      name: "RecipeSI",
       type: "recipe",
       active: true,
       settings: null,
       paymentTracking: false,
-      linkedApiCode: user3.gptApiCode,
+      linkedApiCode: user3.siApiCode,
     };
     
-    this.gptSlots.set(slot1.id, slot1);
-    this.gptSlots.set(slot2.id, slot2);
-    this.gptSlots.set(slot3.id, slot3);
+    this.siSlots.set(slot1.id, slot1);
+    this.siSlots.set(slot2.id, slot2);
+    this.siSlots.set(slot3.id, slot3);
   }
 
   async getUser(id: number): Promise<User | undefined> {

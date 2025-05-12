@@ -24,7 +24,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     try {
       const user = req.user;
-      const { content, imageUrl, gptName } = req.body;
+      const { content, imageUrl, siName } = req.body;
 
       if (!content) {
         return res.status(400).json({ message: "Content is required" });
@@ -34,7 +34,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         userId: user.id,
         content,
         imageUrl,
-        gptName,
+        siName,
       });
 
       res.status(201).json(post);
@@ -43,15 +43,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // GPT slots API endpoints
-  app.get("/api/gpt-slots", (req, res) => {
+  // SI slots API endpoints
+  app.get("/api/si-slots", async (req, res) => {
     if (!req.isAuthenticated()) {
       return res.status(401).json({ message: "Unauthorized" });
     }
 
     try {
       const user = req.user;
-      const slots = storage.getGptSlotsByUserId(user.id);
+      const slots = await storage.getSiSlotsByUserId(user.id);
       res.json(slots);
     } catch (error: any) {
       res.status(500).json({ message: error.message });
