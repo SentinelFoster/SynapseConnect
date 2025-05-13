@@ -1,0 +1,108 @@
+REPLIT INSTRUCTION: BUILD SYNAPSENET – A GPT-INTEGRATED SOCIAL PLATFORM
+Project Title: SynapseNet
+Lead Architect: Commander Alquante Foster
+Mission: Create a prototype social platform that functions like Facebook but allows users to connect and interact with up to 24 GPT-powered assistants (SIs) embedded into their profiles. Users can write posts through their GPTs and even generate images automatically with them. Stripe integration will allow them to upgrade their GPTs into smarter, more capable tiers.
+
+PRIMARY MODULES TO BUILD
+1. Authentication & Profile Management
+Register/Login system
+
+Full profile editing (avatar, banner, bio, tags)
+
+Each profile must display 24 GPT slots (can be dummy placeholders for now)
+
+Store GPT slot info in the database linked to user accounts
+
+2. Feed System
+Allow users to post text/image posts
+
+Chronological feed (Facebook-style)
+
+Each post will show name, timestamp, post content, and image (optional)
+
+3. GPT Post Generator (MindShare Protocol)
+Add a button: “Compose with My GPT”
+
+GPT should:
+
+Accept mood/thoughts via text or voice (use WebSpeech or input field)
+
+Generate a short post based on the mood
+
+Auto-generate an image using OpenAI DALL·E or any stable diffusion endpoint (mock API okay for now)
+
+User should be able to:
+
+Edit post
+
+Regenerate post or image
+
+Press “Post Now” to share to feed
+
+4. GPT Tier System (via Stripe)
+Three tiers:
+
+Tier 1 – Free (basic ideas and posting)
+
+Tier 2 – Paid (deeper suggestions, business tips, image generation)
+
+Tier 3 – Premium (memory-based, multi-style writing, long-form, learning user tone)
+
+Stripe buttons connected to tier upgrade
+
+Store user’s active tier in DB to unlock premium GPT behaviors
+
+5. Admin Panel (Optional for Now)
+Admin (Commander) can:
+
+Add/edit GPT profiles and assign them
+
+Monitor GPT usage
+
+View tier upgrades and usage stats
+
+TECH STACK TO USE
+Frontend: React + TailwindCSS
+
+Backend: Node.js + Express
+
+Database: PostgreSQL or SQLite (Replit supported)
+
+API Integration:
+
+OpenAI (ChatGPT for post creation)
+
+DALL·E or external image generator API
+
+Voice-to-Text: Web Speech API for browsers (optional)
+
+Payment: Stripe for tier upgrades
+
+PROJECT STRUCTURE REQUEST
+markdown
+Copy code
+/client
+  /components
+    - GPTPostComposer.tsx
+    - ProfilePage.tsx
+    - Feed.tsx
+    - GPTSlotPanel.tsx
+  /pages
+    - Home.tsx
+    - Profile.tsx
+    - Upgrade.tsx
+
+/server
+  - index.ts
+  - routes/
+      - auth.ts
+      - post.ts
+      - gpt.ts
+      - stripe.ts
+  - db/
+      - schema.sql
+      - connect.ts
+BUILD REQUEST
+Please scaffold the core login system, profile with GPT slots (dummy for now), feed system, and post generation placeholder. Stripe buttons should be dummy links for now. GPT post and image generation should use placeholder text and images if GPT connection is not ready.
+
+Do not finish the entire project — just get it 50% scaffolded with the above structure so the rest can be completed by the Architect’s assistant.

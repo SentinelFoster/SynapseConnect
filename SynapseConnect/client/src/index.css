@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 0 0% 96.1%;
+  --muted-foreground: 0 0% 45.1%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 217 91.2% 59.8%; /* Blue color for primary */
+  --primary-foreground: 220 100% 98%;
+  --secondary: 262 83.3% 57.8%; /* Purple for secondary */
+  --secondary-foreground: 220 100% 98%;
+  --accent: 162 94.5% 42.7%; /* Accent color */
+  --accent-foreground: 220 100% 98%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 217 91.2% 59.8%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 217 91.2% 59.8%;
+  --primary-foreground: 220 100% 98%;
+  --secondary: 262 83.3% 57.8%;
+  --secondary-foreground: 220 100% 98%;
+  --accent: 162 94.5% 42.7%;
+  --accent-foreground: 220 100% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+.feed-transition {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+.gpt-slot {
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.gpt-slot:hover {
+  @apply transform -translate-y-0.5 shadow-lg;
+}
